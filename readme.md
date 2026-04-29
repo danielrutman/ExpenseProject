@@ -64,6 +64,11 @@ pytest -m "not load"
 | Edge Cases | test_edge_cases.py | Boundaries and unusual inputs |
 | Load | test_load.py | Performance & stability testing |
 
+
+## Test Documentation
+STD (Software Test Document) is maintained in Google Sheets:
+[Expense Project STD](https://docs.google.com/spreadsheets/d/1hNtPti5yw5r6y07iU7BEoJLcB2uskqmu85_cSE7KYfs/edit?gid=0#gid=0)
+
 ## Test Results
 | Suite | Tests | Status |
 |---|---|---|

@@ -13,7 +13,7 @@ from expenses import (
 
 )
 
-#1.test to check open_file() opens a file / creates it
+#1.test to check open_file() creates a file and it exists
 @pytest.mark.excel_sanity
 def test_file_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
@@ -25,7 +25,7 @@ def test_file_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     assert file.exists()
 
 
-#2. test to check sheet is created
+#2. test to check sheet is created eg "April 2026"
 @pytest.mark.excel_sanity
 def test_sheet_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
@@ -50,7 +50,7 @@ def test_headers_are_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     ws = wb["April 2026"]
     assert ws["A1"].value is not None
 
-#4.test to check that some data is inserted at all into the excel
+#4.test to check that some data is inserted at all into the excel and is not None
 @pytest.mark.excel_sanity
 def test_data_is_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
