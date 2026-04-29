@@ -7,7 +7,7 @@ Built by DanielRutman as a learning project to practice Python, pytest, and auto
 ## Tech Stack
 - Python 3.12
 - pytest — automated testing
-- openpyxl — Excel integration (coming)
+- openpyxl — Excel integration 
 - Twilio — WhatsApp bot integration (coming)
 - Docker — containerization (coming)
 - GitHub Actions — CI/CD (coming)
@@ -27,7 +27,8 @@ ExpenseProject/
 ├── test_error_handling.py # error message testing ✅
 ├── test_edge_cases.py     # boundary testing ✅
 ├── test_load.py           # load testing ✅
-├── test_excel.py          # excel integration (coming)
+├── test_excel_sanity.py      # excel sanity tests ✅
+├── test_excel_functionality.py  # excel functionality tests ✅
 ├── test_bot.py            # whatsapp bot (coming)
 └── test_e2e.py            # end to end (coming)
 
@@ -43,6 +44,8 @@ pytest -m functionality
 pytest -m error_handling
 pytest -m edge_cases
 pytest -m load
+pytest -m excel_sanity
+pytest -m excel_functionality
 
 # Run with verbose output
 pytest -v
@@ -63,6 +66,8 @@ pytest -m "not load"
 | Error Handling | test_error_handling.py | Correct error messages |
 | Edge Cases | test_edge_cases.py | Boundaries and unusual inputs |
 | Load | test_load.py | Performance & stability testing |
+| Excel Sanity | test_excel_sanity.py | Excel smoke tests |
+| Excel Functionality | test_excel_functionality.py | Excel happy path |
 
 
 ## Test Documentation
@@ -78,13 +83,15 @@ STD (Software Test Document) is maintained in Google Sheets:
 | Error Handling | 3 | ✅ Pass |
 | Edge Cases | 5 | ✅ Pass |
 | Load | 3 | ✅ Pass |
-| **Total** | **68** | **✅ All Pass** |
+| Excel Sanity | 4 | ✅ Pass |
+| Excel Functionality | 4 | ✅ Pass |
+| Total | 76 | ✅ All Pass |
 
 ## Roadmap
 - [x] Core Python logic
-- [x] Full test suite (68 tests across 6 suites)
+- [x] Full test suite (76 tests across 8 suites)
 - [x] Load testing (normal/max/stress)
-- [ ] Excel integration with openpyxl
+- [x] Excel integration with openpyxl
 - [ ] WhatsApp bot with Twilio
 - [ ] Docker containerization
 - [ ] CI/CD with GitHub Actions
