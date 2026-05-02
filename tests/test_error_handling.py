@@ -9,6 +9,9 @@ from expenses import (
     get_current_date,
     add_expense,
     validate_amount,
+
+)
+from config import (
     VALID_CATEGORIES,
     VALID_MEMBERS
 )

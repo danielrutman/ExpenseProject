@@ -11,16 +11,18 @@ from expenses import (
     get_current_date,
     add_expense,
     validate_amount,
+)
+from config import (
     VALID_CATEGORIES,
     VALID_MEMBERS,
     NORMAL_LOAD,
-    MAX_LOAD ,
+    MAX_LOAD,
     STRESS_LOAD,
-    NORMAL_RUN_TIME ,
-    MAX_RUN_TIME ,
+    NORMAL_RUN_TIME,
+    MAX_RUN_TIME,
     STRESS_RUN_TIME
-
 )
+
 
 #1.test to see our prog doesnt crash under normal load  100 SAVED EXPENSES and runs under 1 sec
 @pytest.mark.load

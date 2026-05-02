@@ -7,7 +7,9 @@ from expenses import (
     is_valid_category,
     validate_member,
     get_current_date,
-    add_expense,
+    add_expense
+)
+from config import (
     VALID_CATEGORIES,
     VALID_MEMBERS
 )

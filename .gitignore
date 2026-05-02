@@ -7,3 +7,4 @@ minitask.py
 .pytest_cache/
 .gitignore.save*
 .~lock.*
+htmlcov/

@@ -53,6 +53,11 @@ pytest -v
 # Generate HTML report
 pytest --html=reports/results_report.html --self-contained-html
 
+#Generate HTML test coverage report  into coverage_report folder
+pytest --cov=. --cov-report=html:coverage_reports
+# to open use below cmd
+xdg-open coverage_reports/index.html
+
 # Run everything except load tests
 pytest -m "not load"
 ```
