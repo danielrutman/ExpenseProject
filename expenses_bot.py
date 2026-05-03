@@ -50,7 +50,7 @@ def bot_quick_mode():
         save_expense_to_excel(name, category, amount, note, FILE_PATH)
         #if save_expense_to_excel is succsesfull the bot creates a response message back to user
         msg = response.message()
-        msg.body("Expense saved!\nName: " + name + "\nAmount: " + str(amount) + " NIS\nCategory: " + category + "\nNote: " + note + "\nDate: " + get_current_date())
+        msg.body(f"✅ Expense saved!\n👤 {name}\n💰 {amount} NIS\n🏷️ {category}\n📝 {note}\n📅 {get_current_date()}")
         # else returns Error message back ot user
     except ValueError as e:
         msg = response.message()
