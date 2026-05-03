@@ -24,15 +24,14 @@ def test_invalid_category_raises_value_error(category):
         parse_quick_message(f"daniel 50 {category} gas")
 
 
-#3. test to check  wrong_number_of_params _raises_value_error eg : "daniel 50 {category < 4
+#3. test to check  wrong_number_of_params _raises_value_error eg : "daniel 50 category < 4
 @pytest.mark.bot_error_handling
 @pytest.mark.parametrize("message", [
-    "daniel 50 car",           # too few params
-    "daniel 50 car gas food",  # too many params
+    "daniel 50 car",   # too few params
 ])
 def test_wrong_number_of_params_raises_value_error(message):
-    """amount of params should be 4 not less not more than 4
-    name amount category amount"""
+    """amount of params should be not less than 4
+    name amount category note"""
 
     with pytest.raises(ValueError, match="Wrong format! pass 4 params : name amount category note. Example: daniel 50 car gas"):
         parse_quick_message(message)

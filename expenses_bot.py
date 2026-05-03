@@ -14,7 +14,7 @@ def parse_quick_message(message):
 
     parts = message.split() # "daniel 50 car gas" → ["daniel", "50", "car", "gas"]
     #if len is not 4 means we have more / less params than needed
-    if len(parts) != 4:
+    if len(parts) < 4:
         raise ValueError("Wrong format! pass 4 params : name amount category note. Example: daniel 50 car gas")
     #whats app accepts str msg from user we need to convert it to num before running our validate amount_func()
     try:
@@ -24,7 +24,7 @@ def parse_quick_message(message):
     except ValueError:
         raise ValueError("Amount must be a number. Example: daniel 50 car gas")
     category = parts[2].strip().lower()
-    note = parts[3].strip()
+    note = " ".join(parts[3:]).strip()
     name = validate_member(parts[0])    #python func to check its a valid regiesterd member eg: daniel / inbar
     validate_amount(amount) #python func to validate its a valid amount
     is_valid_category(category) # python func to check the category is correct
