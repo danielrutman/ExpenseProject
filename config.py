@@ -16,3 +16,6 @@ STRESS_RUN_TIME = 5
 # Excel constants
 FILE_PATH = "expenses_table.xlsx"
 EXCEL_HEADER = ["Date", "User", "Category", "Amount", "Note"]
+
+#Bot constants
+SESSION_FILE = "sessions.json"
