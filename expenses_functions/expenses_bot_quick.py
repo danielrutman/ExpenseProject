@@ -1,8 +1,8 @@
 """CONTAINS ALL THE QUICK MODE FUNCTIONS """
 
 
-from expenses import validate_member, is_valid_category, validate_amount, get_current_date
-from expenses_excel import save_expense_to_excel
+from expenses_functions.expenses import validate_member, is_valid_category, validate_amount, get_current_date
+from expenses_functions.expenses_excel import save_expense_to_excel
 from config import FILE_PATH
 
 #1. function to parse quick message from user

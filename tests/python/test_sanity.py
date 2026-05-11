@@ -2,7 +2,7 @@
    EXPENSES IF DONT PASS TESTING SHOULD STOP TILL FIXED !"""
 
 import pytest
-from expenses import (
+from expenses_functions.expenses import (
     format_entry,
     is_valid_category,
     validate_member,

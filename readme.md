@@ -13,34 +13,40 @@ Built by DanielRutman as a learning project to practice Python, pytest, and auto
 - GitHub Actions — CI/CD (coming)
 - AWS Lambda — deployment (coming)
 
+## Project Structure
 ExpenseProject/
-├── config.py                   # all constants
-├── conftest.py                 # shared fixtures
-├── expenses.py                 # core logic
-├── expenses_excel.py           # Excel functions
-├── expenses_bot.py             # Flask app + main_router()
-├── expenses_bot_quick.py       # quick mode functions
-├── expenses_bot_guided.py      # session management functions
-├── expenses_bot_modes.py       # bot_quick_mode() + bot_guided_mode()
-├── pytest.ini                  # pytest configuration
-├── README.md                   # project documentation
-├── sessions.json               # WhatsApp session state (gitignored)
+├── expenses_bot.py              # Flask app + main_router() — entry point
+├── config.py                    # all constants
+├── conftest.py                  # shared fixtures
+├── pytest.ini                   # pytest configuration
+├── requirements.txt             # dependencies
+├── readme.md                    # project documentation
+├── sessions.json                # WhatsApp session state (gitignored)
+├── expense_bot_flow_diagram.svg # bot flow diagram
+│
+├── expenses_functions/          # core logic
+│   ├── expenses.py
+│   ├── expenses_excel.py
+│   ├── expenses_bot_guided.py
+│   ├── expenses_bot_modes.py
+│   └── expenses_bot_quick.py
+│
 └── tests/
-├── test_e2e.py
-├── python/
-│   ├── test_sanity.py
-│   ├── test_validation.py
-│   ├── test_functionality.py
-│   ├── test_error_handling.py
-│   ├── test_edge_cases.py
-│   └── test_load.py
-├── excel/
-│   ├── test_excel_sanity.py
-│   └── test_excel_functionality.py
-└── bot/
-├── test_bot_sanity.py
-├── test_bot_error_handling.py
-└── test_bot_functionality.py
+    ├── test_e2e.py
+    ├── python/
+    │   ├── test_sanity.py
+    │   ├── test_validation.py
+    │   ├── test_functionality.py
+    │   ├── test_error_handling.py
+    │   ├── test_edge_cases.py
+    │   └── test_load.py
+    ├── excel/
+    │   ├── test_excel_sanity.py
+    │   └── test_excel_functionality.py
+    └── bot/
+        ├── test_bot_sanity.py
+        ├── test_bot_error_handling.py
+        └── test_bot_functionality.py
 
 
 ## How To Run Tests
@@ -116,18 +122,18 @@ STD (Software Test Document) is maintained in Google Sheets:
 | Suite | Tests | Status |
 |---|---|---|
 | Sanity | 6 | ✅ Pass |
-| Validation | 4 | ✅ Pass |
-| Functionality | 4 | ✅ Pass |
-| Error Handling | 3 | ✅ Pass |
-| Edge Cases | 5 | ✅ Pass |
+| Validation | 13 | ✅ Pass |
+| Functionality | 23 | ✅ Pass |
+| Error Handling | 19 | ✅ Pass |
+| Edge Cases | 8 | ✅ Pass |
 | Load | 3 | ✅ Pass |
 | Excel Sanity | 4 | ✅ Pass |
 | Excel Functionality | 4 | ✅ Pass |
 | Bot Sanity | 1 | ✅ Pass |
-| Bot Error Handling | 5 | ✅ Pass |
+| Bot Error Handling | 11 | ✅ Pass |
 | Bot Functionality | 10 | ✅ Pass |
 | E2E | 3 | ✅ Pass |
-| **Total** | **107** | ✅ All Pass |
+| **Total** | **105** | ✅ All Pass |
 
 ## Coverage
 - Total coverage: 98%
@@ -143,7 +149,7 @@ STD (Software Test Document) is maintained in Google Sheets:
 
 ## Roadmap
 - [x] Core Python logic
-- [x] Full test suite (107 tests across 12 suites)
+- [x] Full test suite (105 tests across 12 suites)
 - [x] Load testing (normal/max/stress)
 - [x] Excel integration with openpyxl
 - [x] WhatsApp bot quick mode (Twilio + Flask)

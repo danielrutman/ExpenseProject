@@ -3,7 +3,7 @@ CHECKS THE QUICK_MODE AND GUIDED_MODE OF OUR BOT"""
 
 import pytest
 from expenses_bot import main_router , show_welcome_message
-from expenses_bot_guided import clear_session
+from expenses_functions.expenses_bot_guided import clear_session
 
 #1.E2E quick mode test to check full bot quick_mode
 @pytest.mark.bot_e2e

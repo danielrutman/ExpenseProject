@@ -2,7 +2,7 @@
 eg: when entering invalid member we should get ValueError(f"{name} is not a valid family member" """
 
 import pytest
-from expenses import (
+from expenses_functions.expenses import (
     format_entry,
     is_valid_category,
     validate_member,

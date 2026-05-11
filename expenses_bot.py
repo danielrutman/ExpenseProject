@@ -2,9 +2,9 @@
 
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
-from expenses_bot_modes import bot_quick_mode, bot_guided_mode
-from expenses_bot_guided import get_session, update_session, is_session_expired
-from expenses_bot_quick import show_quick_mode_instructions
+from expenses_functions.expenses_bot_modes import bot_quick_mode, bot_guided_mode
+from expenses_functions.expenses_bot_guided import get_session, update_session, is_session_expired
+from expenses_functions.expenses_bot_quick import show_quick_mode_instructions
 app = Flask(__name__) # creates a Flask application instance
 
 def show_welcome_message():

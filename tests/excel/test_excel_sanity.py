@@ -4,7 +4,7 @@
 import openpyxl
 import pytest
 
-from expenses_excel import (
+from expenses_functions.expenses_excel import (
     open_file,
     get_or_create_sheet,
     write_headers,
@@ -18,8 +18,8 @@ from expenses_excel import (
 def test_file_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
 
-    monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date) # mock date "22 April 2026"
-    monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name) # mock sheet name  "April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_current_date", lambda: mock_date) # mock date "22 April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_sheet_name", lambda: mock_sheet_name) # mock sheet name  "April 2026"
 
     save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))
     assert file.exists()
@@ -30,8 +30,8 @@ def test_file_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
 def test_sheet_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
 
-    monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date) # mock date "22 April 2026"
-    monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)   # mock sheet name  "April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_current_date", lambda: mock_date) # mock date "22 April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_sheet_name", lambda: mock_sheet_name)   # mock sheet name  "April 2026"
 
     save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))
     wb = openpyxl.load_workbook(str(file))
@@ -42,8 +42,8 @@ def test_sheet_is_created(tmp_path, monkeypatch, mock_date, mock_sheet_name):
 def test_headers_are_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
 
-    monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
-    monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
 
     save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))
     wb = openpyxl.load_workbook(str(file))
@@ -55,8 +55,8 @@ def test_headers_are_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
 def test_data_is_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
 
-    monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
-    monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
     save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))
     wb = openpyxl.load_workbook(str(file))
     ws = wb["April 2026"]

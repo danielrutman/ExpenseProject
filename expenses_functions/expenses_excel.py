@@ -4,7 +4,7 @@ all the  EXCEL important functions for expenses project"""
 import openpyxl
 import os
 
-from expenses import get_current_date
+from expenses_functions.expenses import get_current_date
 from config import FILE_PATH, EXCEL_HEADER,MONTHLY_BUDGET
 
 

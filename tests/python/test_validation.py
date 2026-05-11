@@ -6,7 +6,7 @@ Any invalid member, category or amount must be rejected by the system
 # re is Python's regular expressions library used for pattern matching on strings. used in test 4 
 import re
 import pytest
-from expenses import (
+from expenses_functions.expenses import (
     validate_member,
     validate_amount,
     is_valid_category,

@@ -2,7 +2,7 @@
 include all the irregular edge cases that stress the system"""
 
 import pytest
-from expenses import (
+from expenses_functions.expenses import (
     is_valid_category,
     validate_member,
     validate_amount,

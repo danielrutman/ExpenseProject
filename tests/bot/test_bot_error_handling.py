@@ -3,8 +3,8 @@ eg: when entering invalid member we should get ValueError(f"{name} is not a vali
 
 from unittest.mock import patch
 from datetime import datetime, timedelta
-from expenses_bot_guided import update_session, is_session_expired
-from expenses_bot_quick import parse_quick_message
+from expenses_functions.expenses_bot_guided import update_session, is_session_expired
+from expenses_functions.expenses_bot_quick import parse_quick_message
 import pytest
 
 #1.test to check invalid member raises value error f"{member} is not a valid family member"
@@ -57,9 +57,9 @@ def test_non_numeric_amount_raises_value_error(message):
 def test_session_is_expired_after_15_minutes(tmp_path, monkeypatch,mock_phone):
     """is_session_expired() should return True if session timestamp is older than 15 minutes"""
 
-    monkeypatch.setattr("expenses_bot_guided.SESSION_FILE", str(tmp_path / "sessions.json"))
+    monkeypatch.setattr("expenses_functions.expenses_bot_guided.SESSION_FILE", str(tmp_path / "sessions.json"))
     fake_old_time = datetime.now() - timedelta(minutes=20)
-    with patch("expenses_bot_guided.datetime") as mock_datetime:
+    with patch("expenses_functions.expenses_bot_guided.datetime") as mock_datetime:
         mock_datetime.now.return_value = fake_old_time
         mock_datetime.strptime.side_effect = datetime.strptime
         update_session(mock_phone, "waiting_for_mode")

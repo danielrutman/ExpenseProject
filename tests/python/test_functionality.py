@@ -5,7 +5,7 @@ passing by the system ex : groceries is a valid category
 
 
 import pytest
-from expenses import (
+from expenses_functions.expenses import (
     format_entry,
     is_valid_category,
     validate_member,
@@ -56,7 +56,7 @@ def test_valid_amount(amount):
 )
 def test_add_expense(name, amount, category, note, expected, monkeypatch,mock_date):
     # mock date with built in pytest mock  monkeypatch
-    monkeypatch.setattr("expenses.get_current_date", lambda: mock_date)
+    monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
 
     result = add_expense(name, amount, category, note)
 

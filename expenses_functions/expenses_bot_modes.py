@@ -1,9 +1,9 @@
 """CONTAINS THE 2 BOT MODE WRAPPED FUNCTIONS QUICK MODE / GUIDED MODE"""
 
-from expenses_bot_quick import parse_quick_message, show_quick_mode_instructions
-from expenses_bot_guided import get_session, update_session, clear_session, is_session_expired
-from expenses import validate_member, is_valid_category, validate_amount, get_current_date
-from expenses_excel import save_expense_to_excel
+from expenses_functions.expenses_bot_quick import parse_quick_message, show_quick_mode_instructions
+from expenses_functions.expenses_bot_guided import get_session, update_session, clear_session, is_session_expired
+from expenses_functions.expenses import validate_member, is_valid_category, validate_amount, get_current_date
+from expenses_functions.expenses_excel import save_expense_to_excel
 from config import FILE_PATH, VALID_CATEGORIES
 
 #1.quick mode bot func

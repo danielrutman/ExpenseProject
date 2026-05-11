@@ -4,7 +4,7 @@ containts all the load cases to check the functionality of the prog under differ
 # imported time library for time() - start to measure the run time in the tests
 import time
 import pytest
-from expenses import (
+from expenses_functions.expenses import (
     format_entry,
     is_valid_category,
     validate_member,
@@ -34,7 +34,7 @@ from config import (
 )
 def test_normal_load(name, amount, category, note, expected, monkeypatch,mock_date):
     # mock date with built in pytest mock  monkeypatch
-    monkeypatch.setattr("expenses.get_current_date", lambda: mock_date)
+    monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
     start = time.time()
     for i in range(NORMAL_LOAD):
         result = add_expense(name, amount, category, note)
@@ -52,7 +52,7 @@ def test_normal_load(name, amount, category, note, expected, monkeypatch,mock_da
 )
 def test_max_load(name, amount, category, note, expected, monkeypatch,mock_date):
     # mock date with built in pytest mock  monkeypatch
-    monkeypatch.setattr("expenses.get_current_date", lambda: mock_date)
+    monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
     start = time.time()
     for i in range(MAX_LOAD):
         result = add_expense(name, amount, category, note)
@@ -71,7 +71,7 @@ def test_max_load(name, amount, category, note, expected, monkeypatch,mock_date)
 )
 def test_stress_load(name, amount, category, note, expected, monkeypatch,mock_date):
     # mock date with built in pytest mock  monkeypatch
-    monkeypatch.setattr("expenses.get_current_date", lambda: mock_date)
+    monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
     start = time.time()
     for i in range(STRESS_LOAD):
         result = add_expense(name, amount, category, note)
