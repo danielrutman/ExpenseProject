@@ -1,16 +1,7 @@
 """CORE  python  EXPENSES FUNCTION FILE contains
 all the important functions for expenses project"""
 
-
-
-VALID_CATEGORIES = ["car", "bills", "fun", "groceries", "child", "dogs", "other"]
-VALID_MEMBERS = ["daniel", "inbar"]
-NORMAL_LOAD = 100
-MAX_LOAD = 1000
-STRESS_LOAD = 10000
-NORMAL_RUN_TIME = 1
-MAX_RUN_TIME = 2
-STRESS_RUN_TIME = 5
+from config import VALID_CATEGORIES, VALID_MEMBERS
 
 
 

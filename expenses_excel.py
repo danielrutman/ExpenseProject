@@ -5,7 +5,7 @@ import openpyxl
 import os
 
 from expenses import get_current_date
-from config import FILE_PATH, EXCEL_HEADER
+from config import FILE_PATH, EXCEL_HEADER,MONTHLY_BUDGET
 
 
 
@@ -67,3 +67,12 @@ def save_expense_to_excel(name, category, amount, note, FILE_PATH):
     #4.append data to sheet new raw
     ws.append([get_current_date(), name, category, amount, note])
     wb.save(FILE_PATH)
+    # 5. calculate remaining budget for current month
+    # Amount is in column 4 (D), skip header row 1
+    total_spent = sum(
+        ws.cell(row=row, column=4).value
+        for row in range(2, ws.max_row + 1)
+        if ws.cell(row=row, column=4).value is not None
+    )
+    remaining = MONTHLY_BUDGET - total_spent
+    return remaining

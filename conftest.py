@@ -1,6 +1,7 @@
 """CONFTEST DOC CONTAINS REUSABLE FIXTURES ACROSS  OUR PROJ """
 
 import pytest
+from expenses_bot import app
 
 @pytest.fixture
 def mock_date():
@@ -22,4 +23,18 @@ def mock_new_month_date():
 
 
 
+@pytest.fixture
+def mock_phone():
+    return "+972501234567"
 
+
+@pytest.fixture
+def client():
+    """function to create and return a client object"""
+
+    # enable Flask testing mode — surfaces real exceptions instead of hiding them
+    app.config["TESTING"] = True
+    # create a fake HTTP client that simulates POST requests to /bot
+    # without needing a real running server or real Twilio connection
+    with app.test_client() as client:
+        yield client  # hand the client to each test that requests it

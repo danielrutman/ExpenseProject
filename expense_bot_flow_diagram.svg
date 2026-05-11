@@ -1,0 +1,195 @@
+<svg width="100%" viewBox="0 0 680 980" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>Expense Bot Flow Diagram</title>
+<desc>WhatsApp expense bot flow showing Twilio webhook, main_router, quick mode, guided mode step by step, and response path</desc>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+<path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</marker>
+<style>
+  text { font-family: Arial, sans-serif; fill: #333; }
+  .th { font-size: 14px; font-weight: 600; fill: #1a1a2e; }
+  .ts { font-size: 12px; fill: #555; }
+  .arr { stroke: #888; stroke-width: 1.5; fill: none; }
+  .c-gray rect { fill: #f1efe8; stroke: #888780; }
+  .c-purple rect { fill: #eeedfe; stroke: #534ab7; }
+  .c-amber rect { fill: #faeeda; stroke: #ba7517; }
+  .c-teal rect { fill: #e1f5ee; stroke: #0f6e56; }
+  .c-blue rect { fill: #e6f1fb; stroke: #185fa5; }
+  .c-green rect { fill: #eaf3de; stroke: #3b6d11; }
+  .c-gray .th { fill: #2c2c2a; }
+  .c-purple .th { fill: #26215c; }
+  .c-amber .th { fill: #412402; }
+  .c-teal .th { fill: #04342c; }
+  .c-blue .th { fill: #042c53; }
+  .c-green .th { fill: #173404; }
+  .c-gray .ts { fill: #5f5e5a; }
+  .c-purple .ts { fill: #534ab7; }
+  .c-amber .ts { fill: #854f0b; }
+  .c-teal .ts { fill: #0f6e56; }
+  .c-blue .ts { fill: #185fa5; }
+  .c-green .ts { fill: #3b6d11; }
+</style>
+</defs>
+
+<!-- User message -->
+<g class="c-gray">
+<rect x="240" y="30" width="200" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="52" text-anchor="middle" dominant-baseline="central">User sends message</text>
+</g>
+
+<!-- Arrow down with via Twilio label -->
+<line x1="340" y1="74" x2="340" y2="108" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="356" y="94" text-anchor="start">via Twilio</text>
+
+<!-- Response arrow back to user (left side) -->
+<line x1="200" y1="130" x2="120" y2="130" fill="none" stroke="#1D9E75" stroke-width="1" marker-end="url(#arrow)"/>
+<line x1="120" y1="130" x2="120" y2="52" fill="none" stroke="#1D9E75" stroke-width="1"/>
+<line x1="120" y1="52" x2="240" y2="52" fill="none" stroke="#1D9E75" stroke-width="1" marker-end="url(#arrow)"/>
+<text class="ts" x="114" y="94" text-anchor="end" fill="#1D9E75">Twilio sends reply</text>
+
+<!-- main_router -->
+<g class="c-purple">
+<rect x="200" y="108" width="280" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="126" text-anchor="middle" dominant-baseline="central">main_router()</text>
+<text class="ts" x="340" y="148" text-anchor="middle" dominant-baseline="central">Flask POST /bot endpoint</text>
+</g>
+
+<line x1="340" y1="164" x2="340" y2="198" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Session check -->
+<g class="c-amber">
+<rect x="190" y="198" width="300" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="216" text-anchor="middle" dominant-baseline="central">Session exists and not expired?</text>
+<text class="ts" x="340" y="238" text-anchor="middle" dominant-baseline="central">is_session_expired() / get_session()</text>
+</g>
+
+<line x1="240" y1="226" x2="130" y2="226" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="185" y="218" text-anchor="middle">No</text>
+
+<!-- Show welcome -->
+<g class="c-teal">
+<rect x="30" y="198" width="100" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="80" y="216" text-anchor="middle" dominant-baseline="central">show_</text>
+<text class="th" x="80" y="232" text-anchor="middle" dominant-baseline="central">welcome()</text>
+<text class="ts" x="80" y="248" text-anchor="middle" dominant-baseline="central">state: waiting</text>
+</g>
+
+<!-- Arrow from welcome to waiting_for_mode -->
+<line x1="80" y1="254" x2="80" y2="306" fill="none" stroke="#888" stroke-width="1"/>
+<line x1="80" y1="306" x2="200" y2="306" fill="none" stroke="#888" stroke-width="1" marker-end="url(#arrow)"/>
+
+<line x1="340" y1="254" x2="340" y2="288" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="356" y="274" text-anchor="start">Yes</text>
+
+<!-- Mode choice -->
+<g class="c-amber">
+<rect x="200" y="288" width="280" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="306" text-anchor="middle" dominant-baseline="central">waiting_for_mode</text>
+<text class="ts" x="340" y="328" text-anchor="middle" dominant-baseline="central">User sends 1 or 2</text>
+</g>
+
+<line x1="240" y1="344" x2="130" y2="344" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="183" y="336" text-anchor="middle">1</text>
+
+<line x1="480" y1="316" x2="560" y2="316" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="522" y="308" text-anchor="middle">2</text>
+
+<!-- Quick mode box -->
+<g class="c-blue">
+<rect x="30" y="320" width="100" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="80" y="338" text-anchor="middle" dominant-baseline="central">quick_mode</text>
+<text class="ts" x="80" y="358" text-anchor="middle" dominant-baseline="central">bot_quick_mode()</text>
+</g>
+
+<line x1="80" y1="376" x2="80" y2="430" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Quick parse + validate -->
+<g class="c-teal">
+<rect x="20" y="430" width="120" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="80" y="452" text-anchor="middle" dominant-baseline="central">parse + validate</text>
+</g>
+
+<line x1="80" y1="474" x2="80" y2="710" class="arr" marker-end="url(#arrow)"/>
+<line x1="80" y1="732" x2="200" y2="732" class="arr" marker-end="url(#arrow)"/>
+
+<!-- GUIDED MODE -->
+<g class="c-amber">
+<rect x="560" y="288" width="110" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="615" y="310" text-anchor="middle" dominant-baseline="central">waiting_for_name</text>
+</g>
+
+<line x1="615" y1="332" x2="615" y2="356" class="arr" marker-end="url(#arrow)"/>
+
+<g class="c-teal">
+<rect x="560" y="356" width="110" height="34" rx="8" stroke-width="0.5"/>
+<text class="ts" x="615" y="373" text-anchor="middle" dominant-baseline="central">validate + update_session</text>
+</g>
+
+<line x1="615" y1="390" x2="615" y2="414" class="arr" marker-end="url(#arrow)"/>
+
+<g class="c-amber">
+<rect x="560" y="414" width="110" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="615" y="436" text-anchor="middle" dominant-baseline="central">waiting_for_cat</text>
+</g>
+
+<line x1="615" y1="458" x2="615" y2="482" class="arr" marker-end="url(#arrow)"/>
+
+<g class="c-teal">
+<rect x="560" y="482" width="110" height="34" rx="8" stroke-width="0.5"/>
+<text class="ts" x="615" y="499" text-anchor="middle" dominant-baseline="central">validate + update_session</text>
+</g>
+
+<line x1="615" y1="516" x2="615" y2="540" class="arr" marker-end="url(#arrow)"/>
+
+<g class="c-amber">
+<rect x="560" y="540" width="110" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="615" y="562" text-anchor="middle" dominant-baseline="central">waiting_for_amt</text>
+</g>
+
+<line x1="615" y1="584" x2="615" y2="608" class="arr" marker-end="url(#arrow)"/>
+
+<g class="c-teal">
+<rect x="560" y="608" width="110" height="34" rx="8" stroke-width="0.5"/>
+<text class="ts" x="615" y="625" text-anchor="middle" dominant-baseline="central">validate + update_session</text>
+</g>
+
+<line x1="615" y1="642" x2="615" y2="666" class="arr" marker-end="url(#arrow)"/>
+
+<g class="c-amber">
+<rect x="560" y="666" width="110" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="615" y="688" text-anchor="middle" dominant-baseline="central">waiting_for_note</text>
+</g>
+
+<line x1="615" y1="710" x2="615" y2="732" class="arr" marker-end="url(#arrow)"/>
+<line x1="615" y1="732" x2="480" y2="732" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Save to Excel -->
+<g class="c-green">
+<rect x="200" y="710" width="280" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="728" text-anchor="middle" dominant-baseline="central">save_expense_to_excel()</text>
+<text class="ts" x="340" y="750" text-anchor="middle" dominant-baseline="central">Calculate remaining budget</text>
+</g>
+
+<line x1="340" y1="766" x2="340" y2="800" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Waiting for repeat -->
+<g class="c-amber">
+<rect x="190" y="800" width="300" height="56" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="818" text-anchor="middle" dominant-baseline="central">waiting_for_repeat</text>
+<text class="ts" x="340" y="840" text-anchor="middle" dominant-baseline="central">Add another? 1=Yes 2=No</text>
+</g>
+
+<line x1="240" y1="828" x2="160" y2="828" class="arr" marker-end="url(#arrow)"/>
+<line x1="160" y1="828" x2="160" y2="316" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="148" y="572" text-anchor="end">1 = Yes</text>
+
+<line x1="340" y1="856" x2="340" y2="910" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="356" y="886" text-anchor="start">2 = No</text>
+
+<!-- Show welcome again -->
+<g class="c-gray">
+<rect x="200" y="910" width="280" height="44" rx="8" stroke-width="0.5"/>
+<text class="th" x="340" y="932" text-anchor="middle" dominant-baseline="central">show_welcome_message()</text>
+</g>
+
+</svg>

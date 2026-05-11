@@ -3,36 +3,44 @@
 ## Description
 A WhatsApp bot that tracks family expenses and stores them in an Excel spreadsheet.
 Built by DanielRutman as a learning project to practice Python, pytest, and automation.
-
 ## Tech Stack
 - Python 3.12
 - pytest — automated testing
 - openpyxl — Excel integration 
+- Flask — WhatsApp bot web framework
 - Twilio — WhatsApp bot integration 
 - Docker — containerization (coming)
 - GitHub Actions — CI/CD (coming)
-- AWS EC2 — deployment (coming)
-
-## Project Structure
+- AWS Lambda — deployment (coming)
 
 ExpenseProject/
-├── expenses.py          # core logic
-├── conftest.py          # shared fixtures
-├── pytest.ini           # pytest configuration
-├── README.md            # project documentation
+├── config.py                   # all constants
+├── conftest.py                 # shared fixtures
+├── expenses.py                 # core logic
+├── expenses_excel.py           # Excel functions
+├── expenses_bot.py             # Flask app + main_router()
+├── expenses_bot_quick.py       # quick mode functions
+├── expenses_bot_guided.py      # session management functions
+├── expenses_bot_modes.py       # bot_quick_mode() + bot_guided_mode()
+├── pytest.ini                  # pytest configuration
+├── README.md                   # project documentation
+├── sessions.json               # WhatsApp session state (gitignored)
 └── tests/
-├── test_sanity.py         # smoke tests ✅
-├── test_validation.py     # negative testing ✅
-├── test_functionality.py  # positive testing ✅
-├── test_error_handling.py # error message testing ✅
-├── test_edge_cases.py     # boundary testing ✅
-├── test_load.py           # load testing ✅
-├── test_excel_sanity.py      # excel sanity tests ✅
-├── test_excel_functionality.py  # excel functionality tests ✅
-├── test_bot_sanity.py        # bot sanity tests ✅
-└── test_bot_error_handling.py # bot error handling tests ✅
-└── test_bot_functionality.py  # bot functionality tests ✅
-└── test_e2e.py            # end to end (coming)
+├── test_e2e.py
+├── python/
+│   ├── test_sanity.py
+│   ├── test_validation.py
+│   ├── test_functionality.py
+│   ├── test_error_handling.py
+│   ├── test_edge_cases.py
+│   └── test_load.py
+├── excel/
+│   ├── test_excel_sanity.py
+│   └── test_excel_functionality.py
+└── bot/
+├── test_bot_sanity.py
+├── test_bot_error_handling.py
+└── test_bot_functionality.py
 
 
 ## How To Run Tests
@@ -65,6 +73,8 @@ pytest --cov=. --cov-report=html:coverage_reports
 xdg-open coverage_reports/index.html
 
 # Generate Allure report more  detailed report with charts and more friendly GUI
+# Clear old allure data first
+rm -rf reports/allure/*
 pytest --alluredir=reports/allure
 allure serve reports/allure
 
@@ -95,6 +105,7 @@ pytest -m "not load"
 | Bot Sanity | test_bot_sanity.py | Bot smoke tests |
 | Bot Error Handling | test_bot_error_handling.py | Bot error cases |
 | Bot Functionality | test_bot_functionality.py | Bot happy path |
+| E2E | test_e2e.py | Full flow end to end tests |
 
 
 ## Test Documentation
@@ -113,20 +124,38 @@ STD (Software Test Document) is maintained in Google Sheets:
 | Excel Sanity | 4 | ✅ Pass |
 | Excel Functionality | 4 | ✅ Pass |
 | Bot Sanity | 1 | ✅ Pass |
-| Bot Error Handling | 11 | ✅ Pass |
-| Bot Functionality | 3 | ✅ Pass |
-| Total | 91 | ✅ All Pass 
+| Bot Error Handling | 5 | ✅ Pass |
+| Bot Functionality | 10 | ✅ Pass |
+| E2E | 3 | ✅ Pass |
+| **Total** | **107** | ✅ All Pass |
+
+## Coverage
+- Total coverage: 98%
+- Generated with pytest-cov
+
+## Bot Features
+- Quick mode — single message format: `name amount category note`
+- Guided mode — step by step flow
+- Monthly budget tracking — remaining budget shown after each expense
+- Session management — 15 minute timeout
+- Repeat flow — option to add another expense after saving
+- Welcome escape — type "welcome" at any point to return to main menu
 
 ## Roadmap
 - [x] Core Python logic
-- [x] Full test suite (91 tests across 11 suites)
+- [x] Full test suite (107 tests across 12 suites)
 - [x] Load testing (normal/max/stress)
 - [x] Excel integration with openpyxl
 - [x] WhatsApp bot quick mode (Twilio + Flask)
-- [ ] WhatsApp bot guided mode
+- [x] WhatsApp bot guided mode
+- [x] Session management
+- [x] Monthly budget tracking
+- [x] E2E tests (Flask test client)
+- [x] 98% test coverage
+- [ ] Locust load tests for bot
 - [ ] Docker containerization
 - [ ] CI/CD with GitHub Actions
-- [ ] AWS EC2 deployment
+- [ ] AWS Lambda deployment
 
 
 

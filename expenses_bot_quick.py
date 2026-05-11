@@ -32,9 +32,9 @@ def show_quick_mode_instructions():
     """returns quick mode instructions"""
 
     return (
-        "Quick mode selected!\n"
-        "please insert data in the following format:\n"
-        "user amount category note \n"
-        "eg: daniel 50 car gas "
+        "⚡ Quick mode selected!\n"
+        "Please insert data in the following format:\n\n"
+        "name amount category note\n"
+        "📝 Example: daniel 50 car gas"
 
     )

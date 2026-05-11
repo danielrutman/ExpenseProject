@@ -29,7 +29,7 @@ from config import (
 @pytest.mark.parametrize(
     "name, amount, category, note, expected",
     [
-        ("daniel", 50, "car", "gas", "Saved daniel 50 gas to car in 22 April 2026")
+        ("דניאל", 50, "רכב", "gas", "Saved דניאל 50 gas to רכב in 22 April 2026")
     ]
 )
 def test_normal_load(name, amount, category, note, expected, monkeypatch,mock_date):
@@ -47,7 +47,7 @@ def test_normal_load(name, amount, category, note, expected, monkeypatch,mock_da
 @pytest.mark.parametrize(
     "name, amount, category, note, expected",
     [
-        ("daniel", 50, "car", "gas", "Saved daniel 50 gas to car in 22 April 2026")
+        ("דניאל", 50, "רכב", "gas", "Saved דניאל 50 gas to רכב in 22 April 2026")
     ]
 )
 def test_max_load(name, amount, category, note, expected, monkeypatch,mock_date):
@@ -66,7 +66,7 @@ def test_max_load(name, amount, category, note, expected, monkeypatch,mock_date)
 @pytest.mark.parametrize(
     "name, amount, category, note, expected",
     [
-        ("daniel", 50, "car", "gas", "Saved daniel 50 gas to car in 22 April 2026")
+        ("דניאל", 50, "רכב", "gas", "Saved דניאל 50 gas to רכב in 22 April 2026")
     ]
 )
 def test_stress_load(name, amount, category, note, expected, monkeypatch,mock_date):

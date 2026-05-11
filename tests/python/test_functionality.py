@@ -21,14 +21,14 @@ from config import (
 
 #1. test to check valid_members() passes with valid memebers
 @pytest.mark.functionality
-@pytest.mark.parametrize("member", ["daniel","inbar"])
+@pytest.mark.parametrize("member", ["דניאל","ענבר"])
 def test_valid_members(member):
     assert validate_member(member) == member
 
 
 #2. test to check is_valid_category passes with the correct categories
 @pytest.mark.functionality
-@pytest.mark.parametrize("category", ["car", "bills", "fun", "groceries", "child", "dogs", "other"])
+@pytest.mark.parametrize("category", ["רכב", "חשבונות בית", "פנאי ויציאות", "מצרכים ופארם", "הדר", "כלבים", "ביטוחים ומנויים", "דניאל", "ענבר"])
 def test_valid_category(category):
     assert is_valid_category(category) == True
 
@@ -44,12 +44,14 @@ def test_valid_amount(amount):
 @pytest.mark.parametrize(
     "name, amount, category, note, expected",
     [
-        ("daniel", 50, "car", "gas", "Saved daniel 50 gas to car in 22 April 2026"),
-        ("daniel", 50, "groceries", "food", "Saved daniel 50 food to groceries in 22 April 2026"),
-        ("daniel", 50, "dogs", "dog food", "Saved daniel 50 dog food to dogs in 22 April 2026"),
-        ("daniel", 50, "fun", "bar", "Saved daniel 50 bar to fun in 22 April 2026"),
-        ("inbar", 50, "child", "diapers", "Saved inbar 50 diapers to child in 22 April 2026"),
-        ("inbar", 50, "other", "flowers", "Saved inbar 50 flowers to other in 22 April 2026"),
+        ("דניאל", 50, "רכב", "gas", "Saved דניאל 50 gas to רכב in 22 April 2026"),
+        ("דניאל", 50, "מצרכים ופארם", "food", "Saved דניאל 50 food to מצרכים ופארם in 22 April 2026"),
+        ("דניאל", 50, "כלבים", "dog food", "Saved דניאל 50 dog food to כלבים in 22 April 2026"),
+        ("דניאל", 50, "פנאי ויציאות", "bar", "Saved דניאל 50 bar to פנאי ויציאות in 22 April 2026"),
+        ("ענבר", 50, "הדר", "diapers", "Saved ענבר 50 diapers to הדר in 22 April 2026"),
+        ("ענבר", 50, "ביטוחים ומנויים", "insurance", "Saved ענבר 50 insurance to ביטוחים ומנויים in 22 April 2026"),
+        ("דניאל", 50, "דניאל", "personal", "Saved דניאל 50 personal to דניאל in 22 April 2026"),
+        ("ענבר", 50, "ענבר", "personal", "Saved ענבר 50 personal to ענבר in 22 April 2026"),
     ]
 )
 def test_add_expense(name, amount, category, note, expected, monkeypatch,mock_date):

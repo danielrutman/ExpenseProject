@@ -23,7 +23,7 @@ def test_headers_are_correct(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
     monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
 
-    save_expense_to_excel("daniel", "car", 50, "gas", str(file))
+    save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))
     wb = openpyxl.load_workbook(str(file))
     ws = wb["April 2026"]
     assert ws["A1"].value == "Date"
@@ -32,19 +32,19 @@ def test_headers_are_correct(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     assert ws["D1"].value == "Amount"
     assert ws["E1"].value == "Note"
 
-#2.test to check that data is inserted into correct columns "daniel" to User etc ....
+#2.test to check that data is inserted into correct columns "דניאל" to User etc ....
 @pytest.mark.excel_functionality
 def test_data_is_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     file = tmp_path / "test.xlsx"  # creates path but not file yet
 
     monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
     monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
-    save_expense_to_excel("daniel", "car", 50, "gas", str(file))
+    save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))
     wb = openpyxl.load_workbook(str(file))
     ws = wb["April 2026"]
     assert ws["A2"].value == "22 April 2026"
-    assert ws["B2"].value == "daniel"
-    assert ws["C2"].value == "car"
+    assert ws["B2"].value == "דניאל"
+    assert ws["C2"].value == "רכב"
     assert ws["D2"].value == 50
     assert ws["E2"].value == "gas"
 
@@ -55,20 +55,20 @@ def test_multiple_expenses_append_correctly(tmp_path, monkeypatch, mock_date, mo
 
     monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
     monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
-    save_expense_to_excel("daniel", "car", 50, "gas", str(file)) #first expense
-    save_expense_to_excel("inbar", "groceries", 50.5, "coffee", str(file))
+    save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file)) #first expense
+    save_expense_to_excel("ענבר", "מצרכים ופארם", 50.5, "coffee", str(file))
     wb = openpyxl.load_workbook(str(file))
     ws = wb["April 2026"]
     """First expense expectations"""
     assert ws["A2"].value == "22 April 2026"
-    assert ws["B2"].value == "daniel"
-    assert ws["C2"].value == "car"
+    assert ws["B2"].value == "דניאל"
+    assert ws["C2"].value == "רכב"
     assert ws["D2"].value == 50
     assert ws["E2"].value == "gas"
     """Second expense expectations"""
     assert ws["A3"].value == "22 April 2026"
-    assert ws["B3"].value == "inbar"
-    assert ws["C3"].value == "groceries"
+    assert ws["B3"].value == "ענבר"
+    assert ws["C3"].value == "מצרכים ופארם"
     assert ws["D3"].value == 50.5
     assert ws["E3"].value == "coffee"
 
@@ -80,11 +80,11 @@ def test_new_month_sheet(tmp_path, monkeypatch, mock_date, mock_sheet_name,mock_
     #first  mock expense in april
     monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_date)  # mock date "22 April 2026"
     monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_sheet_name)  # mock sheet name  "April 2026"
-    save_expense_to_excel("daniel", "car", 50, "gas", str(file))  # first expense
+    save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))  # first expense
     #second mock expense in May
     monkeypatch.setattr("expenses_excel.get_current_date", lambda: mock_new_month_date)  # mock date "22 May 2026"
     monkeypatch.setattr("expenses_excel.get_sheet_name", lambda: mock_new_month_sheet_name)  # mock sheet name  "May 2026"
-    save_expense_to_excel("daniel", "car", 50, "gas", str(file))  # second expense
+    save_expense_to_excel("דניאל", "רכב", 50, "gas", str(file))  # second expense
 
     wb = openpyxl.load_workbook(str(file))
     assert "April 2026" in wb.sheetnames

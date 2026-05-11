@@ -50,7 +50,7 @@ def test_non_numeric_amount_error_message(amount):
 
 def test_add_expense_with_invalid_member(name):
     with pytest.raises(ValueError, match=f"{name} is not a valid family member"):
-        add_expense(name, 50, "groceries", "gas")
+        add_expense(name, 50, "מצרכים ופארם", "gas")
 
 
 #4b. test to check that the user cant add different valid expenses  with invalid category
@@ -58,7 +58,7 @@ def test_add_expense_with_invalid_member(name):
 @pytest.mark.parametrize("category", ["temu", "amazon", ""])
 def test_add_expense_invalid_category_error_message(category):
     with pytest.raises(ValueError, match=f"{category} is not a valid category"):
-        add_expense("daniel", 50, category, "other")
+        add_expense("דניאל", 50, category, "other")
 
 
 

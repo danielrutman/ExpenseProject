@@ -9,10 +9,10 @@ import pytest
 def test_parse_quick_message_returns_4_values():
     """parse_quick_message() should return 4 values """
 
-    name, amount, category, note = parse_quick_message("daniel 50 car gas")
-    assert name == "daniel"
+    name, amount, category, note = parse_quick_message("דניאל 50 רכב gas")
+    assert name == "דניאל"
     assert amount == 50
-    assert category == "car"
+    assert category == "רכב"
     assert note == "gas"
 
 

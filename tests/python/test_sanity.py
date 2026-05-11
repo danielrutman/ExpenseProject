@@ -27,13 +27,13 @@ def test_valid_members_is_not_empty():
 # 3. Test that checks format_entry returns a string
 @pytest.mark.sanity
 def test_format_entry_is_a_string():
-    result = format_entry("daniel",50,"gas")
+    result = format_entry("דניאל",50,"gas")
     assert isinstance(result, str)
 
 # 4. Test that checks  is_valid_category returns a boolean
 @pytest.mark.sanity
 def test_is_valid_category_returns_boolean():
-    result = is_valid_category("groceries")
+    result = is_valid_category("מצרכים ופארם")
     assert isinstance(result, bool)
 
 #5. Test that that checks get_current_date returns a string
@@ -45,5 +45,5 @@ def test_get_current_date_returns_string():
 #6. Test that that checks add_expense returns a string
 @pytest.mark.sanity
 def test_add_expense_returns_string():
-    result = add_expense("daniel", 50, "groceries", "gas")
+    result = add_expense("דניאל", 50, "מצרכים ופארם", "gas")
     assert isinstance(result, str)
