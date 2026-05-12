@@ -2,6 +2,10 @@
 
 import pytest
 from expenses_bot import app
+#selenium related imports for driver()
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 @pytest.fixture
 def mock_date():
@@ -38,3 +42,13 @@ def client():
     # without needing a real running server or real Twilio connection
     with app.test_client() as client:
         yield client  # hand the client to each test that requests it
+
+@pytest.fixture
+def driver(): # for selenium tests
+    """creates and returns a Chrome webdriver instance"""
+    # automatically installs correct ChromeDriver version
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service)
+    yield driver
+    # teardown - close browser after test
+    driver.quit()
