@@ -31,3 +31,5 @@ MONTHLY_BUDGET = 9000
 
 #Bot constants
 SESSION_FILE = "sessions.json"
+
+GITHUB_URL = "https://github.com/danielrutman/ExpenseProject"

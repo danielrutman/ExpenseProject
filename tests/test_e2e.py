@@ -59,6 +59,10 @@ def test_quick_mode_e2e(client, mock_phone):
     })
     assert "Welcome to Expense Bot" in response.data.decode("utf-8")
 
+    # Step 7— request report → spending report expected
+    response = client.post("/bot", data={"From": mock_phone, "Body": "report"})
+    assert "Spent" in response.data.decode("utf-8")
+
 #2.E2E guided mode test to check full bot guided mode
 @pytest.mark.bot_e2e
 def test_guided_mode_e2e(client, mock_phone):
@@ -153,6 +157,10 @@ def test_guided_mode_e2e(client, mock_phone):
     })
     assert "Welcome to Expense Bot" in response.data.decode("utf-8")
 
+    # Step 13 — request report → spending report expected
+    response = client.post("/bot", data={"From": mock_phone, "Body": "report"})
+    assert "Spent" in response.data.decode("utf-8")
+
 #3.E2E welcome escape test — verify "welcome" returns to main screen from any mode
 @pytest.mark.bot_e2e
 def test_welcome_escape_e2e(client, mock_phone):
@@ -180,3 +188,4 @@ def test_welcome_escape_e2e(client, mock_phone):
     # Step 5 — type welcome from inside guided mode → main screen expected
     response = client.post("/bot", data={"From": mock_phone, "Body": "welcome"})
     assert "Welcome to Expense Bot" in response.data.decode("utf-8")
+

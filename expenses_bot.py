@@ -5,6 +5,8 @@ from twilio.twiml.messaging_response import MessagingResponse
 from expenses_functions.expenses_bot_modes import bot_quick_mode, bot_guided_mode
 from expenses_functions.expenses_bot_guided import get_session, update_session, is_session_expired
 from expenses_functions.expenses_bot_quick import show_quick_mode_instructions
+from expenses_functions.expenses_excel import  generate_report
+from config import FILE_PATH
 app = Flask(__name__) # creates a Flask application instance
 
 def show_welcome_message():
@@ -29,6 +31,11 @@ def main_router():
     response = MessagingResponse()
     msg = response.message()
     session = get_session(phone)
+
+    # user may request monthly report at any time of current spending state
+    if incoming_msg.strip().lower() == "report":
+        msg.body(generate_report(FILE_PATH))
+        return str(response)
 
     #in case user wants to go back to welcome session at any given moment he should write welcome
     if incoming_msg.lower() == "welcome":

@@ -3,10 +3,7 @@ checks that the github repo is public and contains the correct files"""
 
 import pytest
 from selenium.webdriver.chrome.service import Service
-
-
-
-GITHUB_URL = "https://github.com/danielrutman/ExpenseProject"
+from config import GITHUB_URL
 
 #1.test to check github_repo_is_accessible and public
 @pytest.mark.selenium
@@ -18,7 +15,8 @@ def test_github_repo_is_accessible(driver):
 #2.test to check github_repo_key_files_exist
 @pytest.mark.selenium
 def test_github_repo_key_files_exist(driver):
-    """key project files should be visible in repo"""
+    """key project files / folders should be visible in repo"""
+
     driver.get(GITHUB_URL)
     page = driver.page_source
     assert "expenses_bot.py" in page # our expense bot main()

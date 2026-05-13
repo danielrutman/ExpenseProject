@@ -11,8 +11,8 @@ from expenses_functions.expenses_excel import (
     get_or_create_sheet,
     write_headers,
     get_sheet_name,
-    save_expense_to_excel
-
+    save_expense_to_excel,
+    generate_report
 )
 
 #1.test to check all the created headers are correct first is Date then User,Category,Amount,Note
@@ -89,3 +89,23 @@ def test_new_month_sheet(tmp_path, monkeypatch, mock_date, mock_sheet_name,mock_
     wb = openpyxl.load_workbook(str(file))
     assert "April 2026" in wb.sheetnames
     assert "May 2026" in wb.sheetnames
+
+#5. test to check generate_report() sums same category correctly and separates different categories
+@pytest.mark.excel_functionality
+def test_generate_report_returns_correct_category_totals(tmp_path, monkeypatch, mock_date, mock_sheet_name):
+    """test to check generate_report()
+    returns correct total spending per category """
+
+    file = tmp_path / "test.xlsx" # creates path but not file yet
+
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_current_date", lambda: mock_date) # mock date "22 April 2026"
+    monkeypatch.setattr("expenses_functions.expenses_excel.get_sheet_name", lambda: mock_sheet_name) # mock sheet name  "April 2026"
+
+    save_expense_to_excel("דניאל", "דניאל", 50, "personal", str(file))  # same category x2 → total 100
+    save_expense_to_excel("דניאל", "דניאל", 50, "personal", str(file))
+    save_expense_to_excel("דניאל", "ענבר", 50, "personal", str(file))   # different category → 50
+
+    report = generate_report(str(file))
+
+    assert "דניאל — 100 NIS" in report
+    assert "ענבר — 50 NIS" in report

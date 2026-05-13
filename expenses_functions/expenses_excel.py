@@ -76,3 +76,31 @@ def save_expense_to_excel(name, category, amount, note, FILE_PATH):
     )
     remaining = MONTHLY_BUDGET - total_spent
     return remaining
+
+def generate_report(FILE_PATH):
+    """returns monthly spending report per category + total spending"""
+
+    sheet_name = get_sheet_name()
+    wb = open_file(FILE_PATH)
+
+    if sheet_name not in wb.sheetnames: # check to see sheet exists ex april 2026
+        return "📊 No expenses found for this month yet!"
+
+    ws = wb[sheet_name]
+
+    # sum amounts per category — col 3 = category, col 4 = amount
+    category_totals = {}
+    for row in range(2, ws.max_row + 1):
+        cat = ws.cell(row=row, column=3).value # grab category valuge ex רכב
+        amt = ws.cell(row=row, column=4).value # grab amount value for this category column 4 header == amount
+        if cat and amt: # will return false if one of the values is empty
+            category_totals[cat] = category_totals.get(cat, 0) + amt
+
+    total_spent = sum(category_totals.values()) # returns the total spending till now
+    category_lines = "\n".join(f"• {cat} — {amt} NIS" for cat, amt in category_totals.items())
+
+    return (
+        f"📊 {sheet_name}\n"
+        f"💸 Spent: {total_spent} / {MONTHLY_BUDGET} NIS\n\n"
+        f"{category_lines}"
+    )

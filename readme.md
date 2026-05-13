@@ -8,7 +8,9 @@ Built by DanielRutman as a learning project to practice Python, pytest, and auto
 - pytest — automated testing
 - openpyxl — Excel integration 
 - Flask — WhatsApp bot web framework
-- Twilio — WhatsApp bot integration 
+- Twilio — WhatsApp bot integration
+- Locust — load testing
+- Selenium — UI testing -> (doesnt test the bot itself)
 - Docker — containerization (coming)
 - GitHub Actions — CI/CD (coming)
 - AWS Lambda — deployment (coming)
@@ -33,6 +35,8 @@ ExpenseProject/
 │
 └── tests/
     ├── test_e2e.py
+    ├── selenium/
+    │ └── test_github_repo.py
     ├── python/
     │   ├── test_sanity.py
     │   ├── test_validation.py
@@ -92,6 +96,13 @@ python expenses_bot.py
 # Terminal 2 - Start ngrok tunnel
 ngrok http 5000
 
+# Run Locust load tests
+# Terminal 1 - Start Flask
+python3 expenses_bot.py
+# Terminal 2 - Start Locust
+locust -f locustfile.py --host=http://localhost:5000
+# Open http://localhost:8089
+
 
 # Run everything except load tests
 pytest -m "not load"
@@ -112,6 +123,8 @@ pytest -m "not load"
 | Bot Error Handling | test_bot_error_handling.py | Bot error cases |
 | Bot Functionality | test_bot_functionality.py | Bot happy path |
 | E2E | test_e2e.py | Full flow end to end tests |
+| Bot Locust Load | locustfile.py | Real HTTP load testing |
+| Selenium | test_github_repo.py | GitHub repo UI tests (excluded by default) |
 
 
 ## Test Documentation
@@ -120,7 +133,7 @@ STD (Software Test Document) is maintained in Google Sheets:
 
 ## Test Results
 | Suite | Tests | Status |
-|---|---|---|
+|---|-|---|
 | Sanity | 6 | ✅ Pass |
 | Validation | 13 | ✅ Pass |
 | Functionality | 23 | ✅ Pass |
@@ -132,11 +145,13 @@ STD (Software Test Document) is maintained in Google Sheets:
 | Bot Sanity | 1 | ✅ Pass |
 | Bot Error Handling | 11 | ✅ Pass |
 | Bot Functionality | 10 | ✅ Pass |
-| E2E | 3 | ✅ Pass |
-| **Total** | **105** | ✅ All Pass |
+| Bot Locust Load | 3 | ✅ Pass |
+| E2E |3| ✅ Pass |
+| Selenium | 2 | ✅ Pass |
+| **Total** | **108** | ✅ All Pass |
 
 ## Coverage
-- Total coverage: 98%
+- Total coverage: 95%
 - Generated with pytest-cov
 
 ## Bot Features
@@ -146,10 +161,11 @@ STD (Software Test Document) is maintained in Google Sheets:
 - Session management — 15 minute timeout
 - Repeat flow — option to add another expense after saving
 - Welcome escape — type "welcome" at any point to return to main menu
+- Monthly report — type "report" to see spending per category
 
 ## Roadmap
 - [x] Core Python logic
-- [x] Full test suite (105 tests across 12 suites)
+- [x] Full test suite (108 tests across 14 suites)
 - [x] Load testing (normal/max/stress)
 - [x] Excel integration with openpyxl
 - [x] WhatsApp bot quick mode (Twilio + Flask)
@@ -158,7 +174,9 @@ STD (Software Test Document) is maintained in Google Sheets:
 - [x] Monthly budget tracking
 - [x] E2E tests (Flask test client)
 - [x] 98% test coverage
-- [ ] Locust load tests for bot
+- [x] Locust load tests for bot
+- [x] Selenium GitHub repo test
+- [x] Monthly report by category
 - [ ] Docker containerization
 - [ ] CI/CD with GitHub Actions
 - [ ] AWS Lambda deployment

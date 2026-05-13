@@ -49,6 +49,6 @@ def driver(): # for selenium tests
     # automatically installs correct ChromeDriver version
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service)
-    yield driver
+    yield driver # hands the browser to the test function
     # teardown - close browser after test
     driver.quit()
