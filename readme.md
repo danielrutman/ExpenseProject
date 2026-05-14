@@ -11,9 +11,10 @@ Built by DanielRutman as a learning project to practice Python, pytest, and auto
 - Twilio — WhatsApp bot integration
 - Locust — load testing
 - Selenium — UI testing -> (doesnt test the bot itself)
-- Docker — containerization (coming)
+- Docker — containerization 
 - GitHub Actions — CI/CD (coming)
 - AWS Lambda — deployment (coming)
+
 
 ## Project Structure
 ExpenseProject/
@@ -25,6 +26,8 @@ ExpenseProject/
 ├── readme.md                    # project documentation
 ├── sessions.json                # WhatsApp session state (gitignored)
 ├── expense_bot_flow_diagram.svg # bot flow diagram
+├── Dockerfile               # Docker image instructions
+├── docker-compose.yml       # container orchestration
 │
 ├── expenses_functions/          # core logic
 │   ├── expenses.py
@@ -106,6 +109,14 @@ locust -f locustfile.py --host=http://localhost:5000
 
 # Run everything except load tests
 pytest -m "not load"
+
+# Run with Docker
+docker compose up --build   # build and start
+docker compose up -d        # run in background
+docker compose down         # stop
+docker compose logs         # view logs
+docker ps                   # see running containers
+
 ```
 
 ## Test Suites
@@ -177,7 +188,7 @@ STD (Software Test Document) is maintained in Google Sheets:
 - [x] Locust load tests for bot
 - [x] Selenium GitHub repo test
 - [x] Monthly report by category
-- [ ] Docker containerization
+- [x] Docker containerization
 - [ ] CI/CD with GitHub Actions
 - [ ] AWS Lambda deployment
 
