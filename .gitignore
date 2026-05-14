@@ -8,3 +8,7 @@ minitask.py
 .gitignore.save*
 .~lock.*
 htmlcov/
+sessions.json
+.coverage
+htmlcov/
+coverage_reports/
