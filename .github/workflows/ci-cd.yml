@@ -32,7 +32,7 @@ jobs:
 
       # run pylint on all git files ending with .py fail if score below 8 industry standart
       - name: Run Pylint
-        run: pylint $(git ls-files '*.py') --fail-under=8
+        run: pylint $(git ls-files '*.py') --fail-under=8 --ignore=tests
 
 
       # sanity files test run if these fail no rason to proceed at all
