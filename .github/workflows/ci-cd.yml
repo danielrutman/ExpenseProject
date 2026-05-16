@@ -24,6 +24,8 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: install dependencies from requirements.txt
+        run: pip install -r requirements.txt
 
       - name: install pylint
         run: pip install pylint
@@ -32,8 +34,6 @@ jobs:
       - name: Run Pylint
         run: pylint $(git ls-files '*.py') --fail-under=8
 
-      - name: install dependencies from requirements.txt
-        run: pip install -r requirements.txt
 
       # sanity files test run if these fail no rason to proceed at all
       - name: run sanity tests for bot / excel / core functions
