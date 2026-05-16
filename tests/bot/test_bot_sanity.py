@@ -1,8 +1,8 @@
 """SANITY TESTS TO CHECK CORE FUNCTIONALITY OF
    EXPENSES BOT FUNCTIONALITY  IF DONT PASS TESTING SHOULD STOP TILL FIXED !"""
 
-from expenses_functions.expenses_bot_quick import parse_quick_message
 import pytest
+from expenses_functions.expenses_bot_quick import parse_quick_message
 
 #1.test to check parse_quick_message() returns 4 values if not there is no reason to continue
 @pytest.mark.bot_sanity

@@ -12,3 +12,4 @@ sessions.json
 .coverage
 htmlcov/
 coverage_reports/
+.env

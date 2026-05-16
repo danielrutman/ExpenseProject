@@ -5,7 +5,7 @@ import openpyxl
 import os
 
 from expenses_functions.expenses import get_current_date
-from config import FILE_PATH, EXCEL_HEADER,MONTHLY_BUDGET
+from config import EXCEL_HEADER, MONTHLY_BUDGET
 
 
 

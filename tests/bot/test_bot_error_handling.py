@@ -3,9 +3,9 @@ eg: when entering invalid member we should get ValueError(f"{name} is not a vali
 
 from unittest.mock import patch
 from datetime import datetime, timedelta
+import pytest
 from expenses_functions.expenses_bot_guided import update_session, is_session_expired
 from expenses_functions.expenses_bot_quick import parse_quick_message
-import pytest
 
 #1.test to check invalid member raises value error f"{member} is not a valid family member"
 @pytest.mark.bot_error_handling
@@ -64,5 +64,3 @@ def test_session_is_expired_after_15_minutes(tmp_path, monkeypatch,mock_phone):
         mock_datetime.strptime.side_effect = datetime.strptime
         update_session(mock_phone, "waiting_for_mode")
     assert is_session_expired(mock_phone) is True
-
-

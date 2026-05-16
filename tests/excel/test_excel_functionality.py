@@ -7,10 +7,6 @@ import openpyxl
 import pytest
 
 from expenses_functions.expenses_excel import (
-    open_file,
-    get_or_create_sheet,
-    write_headers,
-    get_sheet_name,
     save_expense_to_excel,
     generate_report
 )

@@ -4,7 +4,6 @@ FUNCTIONALITY TESTS - ensures all positive functionalities of the BOT
 """
 
 from expenses_functions.expenses_bot_guided import load_sessions, update_session, get_session, clear_session, is_session_expired
-from datetime import datetime
 from expenses_functions.expenses_bot_quick import parse_quick_message
 import pytest
 

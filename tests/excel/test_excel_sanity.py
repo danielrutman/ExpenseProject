@@ -5,12 +5,7 @@ import openpyxl
 import pytest
 
 from expenses_functions.expenses_excel import (
-    open_file,
-    get_or_create_sheet,
-    write_headers,
-    get_sheet_name,
     save_expense_to_excel
-
 )
 
 #1.test to check open_file() creates a file and it exists
@@ -61,4 +56,3 @@ def test_data_is_written(tmp_path, monkeypatch, mock_date, mock_sheet_name):
     wb = openpyxl.load_workbook(str(file))
     ws = wb["April 2026"]
     assert ws["A2"].value is not None #check there is something inside the first raw first column
-

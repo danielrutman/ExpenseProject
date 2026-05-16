@@ -2,7 +2,6 @@
 checks that the github repo is public and contains the correct files"""
 
 import pytest
-from selenium.webdriver.chrome.service import Service
 from config import GITHUB_URL
 
 #1.test to check github_repo_is_accessible and public

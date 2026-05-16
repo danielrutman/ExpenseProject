@@ -5,16 +5,9 @@ containts all the load cases to check the functionality of the prog under differ
 import time
 import pytest
 from expenses_functions.expenses import (
-    format_entry,
-    is_valid_category,
-    validate_member,
-    get_current_date,
     add_expense,
-    validate_amount,
 )
 from config import (
-    VALID_CATEGORIES,
-    VALID_MEMBERS,
     NORMAL_LOAD,
     MAX_LOAD,
     STRESS_LOAD,
@@ -33,6 +26,7 @@ from config import (
     ]
 )
 def test_normal_load(name, amount, category, note, expected, monkeypatch,mock_date):
+    """system should handle 100 expenses without crashing and run under 1 second"""
     # mock date with built in pytest mock  monkeypatch
     monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
     start = time.time()
@@ -51,6 +45,7 @@ def test_normal_load(name, amount, category, note, expected, monkeypatch,mock_da
     ]
 )
 def test_max_load(name, amount, category, note, expected, monkeypatch,mock_date):
+    """system should handle 1000 expenses without crashing and run under 2 seconds"""
     # mock date with built in pytest mock  monkeypatch
     monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
     start = time.time()
@@ -70,6 +65,7 @@ def test_max_load(name, amount, category, note, expected, monkeypatch,mock_date)
     ]
 )
 def test_stress_load(name, amount, category, note, expected, monkeypatch,mock_date):
+    """system should handle 10000 expenses without crashing and run under 5 seconds"""
     # mock date with built in pytest mock  monkeypatch
     monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
     start = time.time()

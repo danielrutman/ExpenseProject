@@ -69,7 +69,3 @@ def validate_amount(amount):
 
 
 
-
-
-
-

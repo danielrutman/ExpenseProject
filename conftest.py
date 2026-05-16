@@ -1,34 +1,37 @@
 """CONFTEST DOC CONTAINS REUSABLE FIXTURES ACROSS  OUR PROJ """
 
 import pytest
-from expenses_bot import app
-#selenium related imports for driver()
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from expenses_bot import app
+
 
 @pytest.fixture
 def mock_date():
+    """returns a fixed mock date string for testing"""
     return "22 April 2026"
-
 
 
 @pytest.fixture
 def mock_sheet_name():
+    """returns a fixed mock sheet name for testing"""
     return "April 2026"
 
 @pytest.fixture
 def mock_new_month_sheet_name():
+    """returns a fixed mock sheet name for a new month"""
     return "May 2026"
 
 @pytest.fixture
 def mock_new_month_date():
+    """returns a fixed mock date string for a new month"""
     return "22 May 2026"
-
 
 
 @pytest.fixture
 def mock_phone():
+    """returns a fixed mock phone number for testing"""
     return "+972501234567"
 
 

@@ -2,7 +2,6 @@
 CHECKS THE QUICK_MODE AND GUIDED_MODE OF OUR BOT"""
 
 import pytest
-from expenses_bot import main_router , show_welcome_message
 from expenses_functions.expenses_bot_guided import clear_session
 
 #1.E2E quick mode test to check full bot quick_mode
@@ -188,4 +187,3 @@ def test_welcome_escape_e2e(client, mock_phone):
     # Step 5 — type welcome from inside guided mode → main screen expected
     response = client.post("/bot", data={"From": mock_phone, "Body": "welcome"})
     assert "Welcome to Expense Bot" in response.data.decode("utf-8")
-

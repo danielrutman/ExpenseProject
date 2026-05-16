@@ -1,0 +1,71 @@
+name: CI/CD Pipeline for Expense project
+
+#expense project ci-cd pipline which will  test our app
+# → build docker image → push to repo → deploy to  AWS lambda
+
+
+
+on: #the pipe line will be triggered upon push/pull to master branch
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest #here we specify the Os on which we are working
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3 # clones our repository into the runner's workspace which is created in each run
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+
+      - name: install pylint
+        run: pip install pylint
+
+      # run pylint on all git files ending with .py fail if score below 8 industry standart
+      - name: Run Pylint
+        run: pylint $(git ls-files '*.py') --fail-under=8
+
+      - name: install dependencies from requirements.txt
+        run: pip install -r requirements.txt
+
+      # sanity files test run if these fail no rason to proceed at all
+      - name: run sanity tests for bot / excel / core functions
+        run: pytest -m "excel_sanity or sanity or bot_sanity "
+
+      # run all the rest of the tests except E2E and github selenium tests
+      - name: rest of the test files except E2E and selenium
+        run: pytest -m "not bot_e2e and not selenium and not sanity and not excel_sanity and not bot_sanity"
+
+      # check coverage is above 90% if below pipeline fails
+      - name: Check coverage
+        run: pytest --ignore=tests/selenium --cov=. --cov-fail-under=90
+
+      # run E2E  final test if passes we will push our new image to docker hub
+      - name: run E2E test
+        run: pytest -m "bot_e2e"
+
+      # login to dockerhub using github secrets
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # build and push docker image to dockerhub
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+            context: . # tells docker to find Dockerfile in current dir
+            push: true
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/expense-bot:latest
+
+      # deploy to AWS Lambda - will be configured in Phase 5
+      # - name: Deploy to AWS Lambda
+      #   run: echo "Lambda deployment coming in Phase 5"

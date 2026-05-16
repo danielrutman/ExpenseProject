@@ -1,9 +1,7 @@
 """CONTAINS ALL THE QUICK MODE FUNCTIONS """
 
 
-from expenses_functions.expenses import validate_member, is_valid_category, validate_amount, get_current_date
-from expenses_functions.expenses_excel import save_expense_to_excel
-from config import FILE_PATH
+from expenses_functions.expenses import validate_member, is_valid_category, validate_amount
 
 #1. function to parse quick message from user
 def parse_quick_message(message):
@@ -34,7 +32,19 @@ def show_quick_mode_instructions():
     return (
         "⚡ Quick mode selected!\n"
         "Please insert data in the following format:\n\n"
-        "name amount category note\n"
-        "📝 Example: daniel 50 car gas"
-
+        "name amount category note\n\n"
+        "📋 Valid members:\n"
+        "• דניאל\n"
+        "• ענבר\n\n"
+        "📋 Valid categories:\n"
+        "• מצרכים ופארם\n"
+        "• רכב\n"
+        "• ביטוחים ומנויים\n"
+        "• כלבים\n"
+        "• חשבונות בית\n"
+        "• הדר\n"
+        "• ענבר\n"
+        "• דניאל\n"
+        "• פנאי ויציאות\n\n"
+        "📝 Example: דניאל 50 רכב דלק"
     )

@@ -85,5 +85,4 @@ def main_router():
     return str(response)
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
+    app.run(host="0.0.0.0", debug=True) # 0.0.0.0 means listen on all interfaces — making Flask accessible from outside the container.

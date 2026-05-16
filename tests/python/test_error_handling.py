@@ -3,17 +3,10 @@ eg: when entering invalid member we should get ValueError(f"{name} is not a vali
 
 import pytest
 from expenses_functions.expenses import (
-    format_entry,
     is_valid_category,
     validate_member,
-    get_current_date,
     add_expense,
     validate_amount,
-
-)
-from config import (
-    VALID_CATEGORIES,
-    VALID_MEMBERS
 )
 
 #1. test to check valid_members() raise ValueError(f"{name} is not a valid family member") for invalid members

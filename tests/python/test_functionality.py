@@ -6,16 +6,10 @@ passing by the system ex : groceries is a valid category
 
 import pytest
 from expenses_functions.expenses import (
-    format_entry,
     is_valid_category,
     validate_member,
-    get_current_date,
     add_expense,
     validate_amount
-)
-from config import (
-    VALID_CATEGORIES,
-    VALID_MEMBERS
 )
 
 
@@ -30,6 +24,7 @@ def test_valid_members(member):
 @pytest.mark.functionality
 @pytest.mark.parametrize("category", ["רכב", "חשבונות בית", "פנאי ויציאות", "מצרכים ופארם", "הדר", "כלבים", "ביטוחים ומנויים", "דניאל", "ענבר"])
 def test_valid_category(category):
+    """is_valid_category() should return True for all valid categories"""
     assert is_valid_category(category) == True
 
 
@@ -55,6 +50,7 @@ def test_valid_amount(amount):
     ]
 )
 def test_add_expense(name, amount, category, note, expected, monkeypatch,mock_date):
+    """add_expense() should return correctly formatted string for valid inputs"""
     # mock date with built in pytest mock  monkeypatch
     monkeypatch.setattr("expenses_functions.expenses.get_current_date", lambda: mock_date)
 
