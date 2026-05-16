@@ -6,14 +6,16 @@ Built by DanielRutman as a learning project to practice Python, pytest, and auto
 ## Tech Stack
 - Python 3.12
 - pytest — automated testing
-- openpyxl — Excel integration 
+- openpyxl — Excel integration
 - Flask — WhatsApp bot web framework
 - Twilio — WhatsApp bot integration
 - Locust — load testing
-- Selenium — UI testing -> (doesnt test the bot itself)
-- Docker — containerization 
-- GitHub Actions — CI/CD (coming)
+- Selenium — UI testing (does not test the bot itself)
+- Docker — containerization
+- GitHub Actions — CI/CD pipeline 
+- Pylint — code quality (score 8.56/10) 
 - AWS Lambda — deployment (coming)
+
 
 
 ## Project Structure
@@ -24,10 +26,13 @@ ExpenseProject/
 ├── pytest.ini                   # pytest configuration
 ├── requirements.txt             # dependencies
 ├── readme.md                    # project documentation
-├── sessions.json                # WhatsApp session state (gitignored)
+├── Dockerfile                   # Docker image instructions
+├── docker-compose.yml           # container orchestration
+├── locustfile.py                # Locust load tests
+├── .pylintrc                    # pylint configuration
+├── .github/workflows/ci-cd.yml  # GitHub Actions pipeline
 ├── expense_bot_flow_diagram.svg # bot flow diagram
-├── Dockerfile               # Docker image instructions
-├── docker-compose.yml       # container orchestration
+├── cicd_pipeline_diagram.svg    # CI/CD pipeline diagram
 │
 ├── expenses_functions/          # core logic
 │   ├── expenses.py
@@ -54,6 +59,12 @@ ExpenseProject/
         ├── test_bot_sanity.py
         ├── test_bot_error_handling.py
         └── test_bot_functionality.py
+
+## CI/CD Pipeline
+Every push to master triggers automatically:
+```
+Install deps → Pylint ≥ 8.0 → Sanity tests → All tests → Coverage ≥ 90% → E2E → Build + Push to DockerHub
+```
 
 
 ## How To Run Tests
@@ -106,6 +117,8 @@ python3 expenses_bot.py
 locust -f locustfile.py --host=http://localhost:5000
 # Open http://localhost:8089
 
+# Run pylint
+pylint $(git ls-files '*.py') --fail-under=8
 
 # Run everything except load tests
 pytest -m "not load"
@@ -165,6 +178,11 @@ STD (Software Test Document) is maintained in Google Sheets:
 - Total coverage: 95%
 - Generated with pytest-cov
 
+## Code Quality
+- Pylint score: 8.56/10
+- Threshold: 8.0 (enforced in CI/CD pipeline)
+
+
 ## Bot Features
 - Quick mode — single message format: `name amount category note`
 - Guided mode — step by step flow
@@ -177,20 +195,25 @@ STD (Software Test Document) is maintained in Google Sheets:
 ## Roadmap
 - [x] Core Python logic
 - [x] Full test suite (108 tests across 14 suites)
-- [x] Load testing (normal/max/stress)
+- [x] Load testing — pytest + Locust
 - [x] Excel integration with openpyxl
 - [x] WhatsApp bot quick mode (Twilio + Flask)
 - [x] WhatsApp bot guided mode
 - [x] Session management
 - [x] Monthly budget tracking
 - [x] E2E tests (Flask test client)
-- [x] 98% test coverage
+- [x] 95% test coverage
 - [x] Locust load tests for bot
 - [x] Selenium GitHub repo test
 - [x] Monthly report by category
-- [x] Docker containerization
-- [ ] CI/CD with GitHub Actions
+- [x] Docker + Docker Compose
+- [x] GitHub Actions CI/CD pipeline
+- [x] Pylint code quality gate (8.56/10)
+- [x] DockerHub image registry
 - [ ] AWS Lambda deployment
+- [ ] Terraform infrastructure as code
+- [ ] CloudWatch monitoring
+- [ ] Grafana dashboards
 
 
 
