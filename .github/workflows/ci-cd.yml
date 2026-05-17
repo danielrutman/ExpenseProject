@@ -27,12 +27,9 @@ jobs:
       - name: install dependencies from requirements.txt
         run: pip install -r requirements.txt
 
-      - name: install pylint
-        run: pip install pylint
-
       # run pylint on all git files ending with .py fail if score below 8 industry standart
       - name: Run Pylint
-        run: python -m pylint $(git ls-files '*.py') --fail-under=8 --ignore=tests
+        run: pylint $(git ls-files '*.py') --fail-under=8
 
 
       # sanity files test run if these fail no rason to proceed at all

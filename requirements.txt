@@ -9,3 +9,4 @@ locust
 selenium
 webdriver-manager
 requests
+pylint
