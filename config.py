@@ -3,6 +3,8 @@
 """Configuration file for expenses project contains all the
 CONSTANTS FOR EXPENSES PROJECT"""
 
+import os
+
 # Member and category constants
 VALID_MEMBERS = ["דניאל", "daniel", "inbar","ענבר"]
 VALID_CATEGORIES = [
@@ -25,11 +27,14 @@ MAX_RUN_TIME = 2
 STRESS_RUN_TIME = 5
 
 # Excel constants
-FILE_PATH = "expenses_table.xlsx"
+FILE_PATH = "/tmp/expenses_table.xlsx" if os.environ.get("AWS_LAMBDA_FUNCTION_NAME") else "expenses_table.xlsx"
 EXCEL_HEADER = ["Date", "User", "Category", "Amount", "Note"]
 MONTHLY_BUDGET = 9000
 
 #Bot constants
-SESSION_FILE = "sessions.json"
+import os
+
+# use /tmp on Lambda, local path otherwise
+SESSION_FILE = "/tmp/sessions.json" if os.environ.get("AWS_LAMBDA_FUNCTION_NAME") else "sessions.json"
 
 GITHUB_URL = "https://github.com/danielrutman/ExpenseProject"

@@ -26,8 +26,8 @@ def main_router():
     """bot main router gives the user the ability to send messages
     in one of the following formats: quick mode, guided mode"""
 
-    phone = request.form.get("From")
-    incoming_msg = request.form.get("Body").strip()
+    phone = request.form.get("From") or ""
+    incoming_msg = (request.form.get("Body") or "").strip()
     response = MessagingResponse()
     msg = response.message()
     session = get_session(phone)

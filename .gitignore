@@ -13,3 +13,7 @@ sessions.json
 htmlcov/
 coverage_reports/
 .env
+lambda_package/
+lambda_deployment.zip
+response.json
+.claude/
