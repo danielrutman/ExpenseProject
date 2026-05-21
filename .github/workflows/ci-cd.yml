@@ -1,7 +1,7 @@
 name: CI/CD Pipeline for Expense project
 
 #expense project ci-cd pipline which will  test our app
-# → build docker image → push to repo → deploy to  AWS lambda
+# → build docker image → push to  ECR registry → deploy to  AWS lambda
 
 
 
