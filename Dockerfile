@@ -1,8 +1,5 @@
-# use official Python 3.12 slim image as base
-FROM python:3.12-slim
-
-# set working directory inside container
-WORKDIR /app
+# use official AWS Lambda Python 3.12 base image
+FROM public.ecr.aws/lambda/python:3.12
 
 # copy requirements first for better caching
 COPY requirements.txt .
@@ -13,8 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # copy all project files into container
 COPY . .
 
-# expose port 5000 for Flask
-EXPOSE 5000
-
-# run the bot with python3
-CMD ["python3", "expenses_bot.py"]
+# lambda handler entrypoint
+CMD ["lambda_handler.handler"]

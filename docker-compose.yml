@@ -1,17 +1,13 @@
-
 services:
   expenses_bot:
-    # build from our Dockerfile in current directory
-    build: .
-    user: "${UID}:${GID}"  # runs as your local user, not root
-    # map port 5000 on host to port 5000 in container
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    user: "${UID}:${GID}"
     ports:
       - "5000:5000"
-    # mount local directory so code changes reflect without rebuild
     volumes:
       - .:/app
-    # environment variables
     environment:
       - FLASK_ENV=development
-    # restart container if it crashes
     restart: unless-stopped
