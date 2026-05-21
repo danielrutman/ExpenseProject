@@ -2,7 +2,8 @@
 
 ## Description
 A WhatsApp bot that tracks family expenses and stores them in an Excel spreadsheet.
-Built by DanielRutman as a learning project to practice Python, pytest, and automation.
+Built by DanielRutman as a learning project to practice Python, pytest, automation, and AWS cloud deployment.
+
 ## Tech Stack
 - Python 3.12
 - pytest — automated testing
@@ -12,27 +13,38 @@ Built by DanielRutman as a learning project to practice Python, pytest, and auto
 - Locust — load testing
 - Selenium — UI testing (does not test the bot itself)
 - Docker — containerization
-- GitHub Actions — CI/CD pipeline 
-- Pylint — code quality (score 8.56/10) 
-- AWS Lambda — deployment (coming)
+- GitHub Actions — CI/CD pipeline
+- Pylint — code quality (score 8.56/10)
+- AWS Lambda — serverless deployment (container image)
+- AWS API Gateway — HTTP trigger for Lambda
+- Amazon ECR — Docker image registry
+- AWS CloudWatch — logging
 
-
+## Architecture
+- User sends WhatsApp message → Twilio → API Gateway → Lambda → response back to user
+- Diagrams:
+  - expense_bot_flow_diagram.svg — bot conversation flow
+  - cicd_pipeline_diagram.svg — CI/CD pipeline
+  - infrastructure_flow_diagram.svg — full AWS infrastructure flow
 
 ## Project Structure
 ExpenseProject/
 ├── expenses_bot.py              # Flask app + main_router() — entry point
-├── config.py                    # all constants
+├── lambda_handler.py            # AWS Lambda handler with base64 decoding
+├── config.py                    # all constants — paths use /tmp on Lambda
 ├── conftest.py                  # shared fixtures
 ├── pytest.ini                   # pytest configuration
 ├── requirements.txt             # dependencies
 ├── readme.md                    # project documentation
-├── Dockerfile                   # Docker image instructions
-├── docker-compose.yml           # container orchestration
+├── Dockerfile                   # Lambda container image
+├── Dockerfile.local             # local Flask development
+├── docker-compose.yml           # local container orchestration
 ├── locustfile.py                # Locust load tests
 ├── .pylintrc                    # pylint configuration
 ├── .github/workflows/ci-cd.yml  # GitHub Actions pipeline
 ├── expense_bot_flow_diagram.svg # bot flow diagram
 ├── cicd_pipeline_diagram.svg    # CI/CD pipeline diagram
+├── infrastructure_flow_diagram.svg # AWS infrastructure diagram
 │
 ├── expenses_functions/          # core logic
 │   ├── expenses.py
@@ -42,30 +54,40 @@ ExpenseProject/
 │   └── expenses_bot_quick.py
 │
 └── tests/
-    ├── test_e2e.py
-    ├── selenium/
-    │ └── test_github_repo.py
-    ├── python/
-    │   ├── test_sanity.py
-    │   ├── test_validation.py
-    │   ├── test_functionality.py
-    │   ├── test_error_handling.py
-    │   ├── test_edge_cases.py
-    │   └── test_load.py
-    ├── excel/
-    │   ├── test_excel_sanity.py
-    │   └── test_excel_functionality.py
-    └── bot/
-        ├── test_bot_sanity.py
-        ├── test_bot_error_handling.py
-        └── test_bot_functionality.py
+├── test_e2e.py
+├── selenium/
+│   └── test_github_repo.py
+├── python/
+│   ├── test_sanity.py
+│   ├── test_validation.py
+│   ├── test_functionality.py
+│   ├── test_error_handling.py
+│   ├── test_edge_cases.py
+│   └── test_load.py
+├── excel/
+│   ├── test_excel_sanity.py
+│   └── test_excel_functionality.py
+└── bot/
+├── test_bot_sanity.py
+├── test_bot_error_handling.py
+└── test_bot_functionality.py
 
 ## CI/CD Pipeline
 Every push to master triggers automatically:
 ```
-Install deps → Pylint ≥ 8.0 → Sanity tests → All tests → Coverage ≥ 90% → E2E → Build + Push to DockerHub
+Install deps → Pylint ≥ 8.0 → Sanity tests → All tests → Coverage ≥ 90% → E2E → Build + Push to ECR → Deploy to Lambda
 ```
 
+## AWS Lambda Setup
+- Function name: `expense-bot`
+- Region: `eu-central-1` (Frankfurt)
+- Runtime: Container image (Python 3.12)
+- Memory: 256MB | Timeout: 30 seconds
+- Handler: `lambda_handler.handler`
+- API Gateway URL: `https://5jm62pr5bi.execute-api.eu-central-1.amazonaws.com/default/expense-bot`
+- Twilio webhook: same URL above
+- Note: expenses stored in `/tmp` on Lambda (ephemeral — resets on cold start)
+- Note: Twilio sandbox requires rejoining every 72 hours of inactivity
 
 ## How To Run Tests
 ```bash
@@ -209,11 +231,11 @@ STD (Software Test Document) is maintained in Google Sheets:
 - [x] Docker + Docker Compose
 - [x] GitHub Actions CI/CD pipeline
 - [x] Pylint code quality gate (8.56/10)
-- [x] DockerHub image registry
-- [ ] AWS Lambda deployment
+- [x] Amazon ECR image registry
+- [x] AWS Lambda deployment
 - [ ] Terraform infrastructure as code
 - [ ] CloudWatch monitoring
-- [ ] Grafana dashboards
+
 
 
 
