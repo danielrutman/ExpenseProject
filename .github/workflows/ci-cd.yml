@@ -48,21 +48,35 @@ jobs:
       - name: run E2E test
         run: pytest -m "bot_e2e"
 
-      # login to dockerhub using github secrets
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
+# login to AWS ECR
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-            username: ${{ secrets.DOCKERHUB_USERNAME }}
-            password: ${{ secrets.DOCKERHUB_TOKEN }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      # build and push docker image to dockerhub
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-            context: . # tells docker to find Dockerfile in current dir
-            push: true
-            tags: ${{ secrets.DOCKERHUB_USERNAME }}/expense-bot:latest
+      # login to ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
-      # deploy to AWS Lambda - will be configured in Phase 5
-      # - name: Deploy to AWS Lambda
-      #   run: echo "Lambda deployment coming in Phase 5"
+      # build and push docker image to ECR
+      - name: Build and push image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      # deploy new image to Lambda
+      - name: Deploy to AWS Lambda
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        run: |
+          aws lambda update-function-code \
+            --function-name ${{ secrets.LAMBDA_FUNCTION_NAME }} \
+            --image-uri $ECR_REGISTRY/$ECR_REPOSITORY:latest \
+            --region ${{ secrets.AWS_REGION }}
