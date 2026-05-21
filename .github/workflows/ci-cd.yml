@@ -48,7 +48,7 @@ jobs:
       - name: run E2E test
         run: pytest -m "bot_e2e"
 
-# login to AWS ECR
+      # login to AWS ECR
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
