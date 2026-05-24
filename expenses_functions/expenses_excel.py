@@ -3,18 +3,34 @@ all the  EXCEL important functions for expenses project"""
 
 import openpyxl
 import os
+import boto3
 
 from expenses_functions.expenses import get_current_date
-from config import EXCEL_HEADER, MONTHLY_BUDGET
+from config import EXCEL_HEADER, MONTHLY_BUDGET, S3_BUCKET, S3_KEY, FILE_PATH
 
+def download_from_s3():
+    """Downloads expense file from S3 to /tmp if it exists."""
+    if not S3_BUCKET:
+        return
+    try:
+        s3 = boto3.client("s3")
+        s3.download_file(S3_BUCKET, S3_KEY, FILE_PATH)
+    except Exception:
+        pass  # file doesn't exist in S3 yet — first run
 
-
+def upload_to_s3():
+    """Uploads expense file from /tmp to S3."""
+    if not S3_BUCKET:
+        return
+    s3 = boto3.client("s3")
+    s3.upload_file(FILE_PATH, S3_BUCKET, S3_KEY)
 
 
 def open_file(FILE_PATH):
-    """Opens existing Excel file or creates new one if doesn't exist.
-    Returns workbook object."""
+    """Opens existing Excel file or creates new one.
+    Downloads from S3 first if on Lambda."""
 
+    download_from_s3()
     if os.path.exists(FILE_PATH):
         return openpyxl.load_workbook(FILE_PATH)
     else:
@@ -67,6 +83,7 @@ def save_expense_to_excel(name, category, amount, note, FILE_PATH):
     #4.append data to sheet new raw
     ws.append([get_current_date(), name, category, amount, note])
     wb.save(FILE_PATH)
+    upload_to_s3()
     # 5. calculate remaining budget for current month
     # Amount is in column 4 (D), skip header row 1
     total_spent = sum(
