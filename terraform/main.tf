@@ -14,6 +14,8 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+data "aws_caller_identity" "current" {}
+
 # Output the API Gateway URL
 output "api_gateway_url" {
   value = "${aws_apigatewayv2_stage.default.invoke_url}/expense-bot"

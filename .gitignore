@@ -10,10 +10,14 @@ minitask.py
 htmlcov/
 sessions.json
 .coverage
-htmlcov/
 coverage_reports/
 .env
+.env.*
 lambda_package/
 lambda_deployment.zip
 response.json
 .claude/
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform.lock.hcl

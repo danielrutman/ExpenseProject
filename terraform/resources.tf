@@ -32,7 +32,7 @@ resource "aws_iam_policy" "github_actions_policy" {
       {
         Effect   = "Allow"
         Action   = ["lambda:UpdateFunctionCode"]
-        Resource = "arn:aws:lambda:eu-central-1:115643029932:function:expense-bot"
+        Resource = "arn:aws:lambda:eu-central-1:${data.aws_caller_identity.current.account_id}:function:expense-bot"
       }
     ]
   })
@@ -97,6 +97,12 @@ resource "aws_lambda_function" "expense_bot" {
   image_uri     = "${aws_ecr_repository.expense_bot.repository_url}:latest"
   memory_size   = 256
   timeout       = 30
+
+  environment {
+    variables = {
+      S3_BUCKET_NAME = aws_s3_bucket.expense_data.bucket
+    }
+  }
 }
 
 # API Gateway HTTP API

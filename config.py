@@ -40,5 +40,5 @@ SESSION_FILE = "/tmp/sessions.json" if os.environ.get("AWS_LAMBDA_FUNCTION_NAME"
 GITHUB_URL = "https://github.com/danielrutman/ExpenseProject"
 
 # S3 bucket for persistent storage (Lambda only)
-S3_BUCKET = "expense-bot-data-115643029932" if os.environ.get("AWS_LAMBDA_FUNCTION_NAME") else None
+S3_BUCKET = os.environ.get("S3_BUCKET_NAME") if os.environ.get("AWS_LAMBDA_FUNCTION_NAME") else None
 S3_KEY = "expenses_table.xlsx"
