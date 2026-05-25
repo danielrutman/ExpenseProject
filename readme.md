@@ -5,7 +5,6 @@ A WhatsApp bot that tracks family expenses and stores them in an Excel spreadshe
 Built by DanielRutman as a learning project to practice Python, pytest, automation, and AWS cloud deployment.
 
 ## Medium Article
-## Medium Article
 [From Manual QA to DevOps: How I Built a Production WhatsApp Bot on AWS](https://medium.com/@danielrutman8/from-manual-qa-to-devops-how-i-built-a-production-whatsapp-bot-on-aws-812cb057a665)
 
 
